@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="MVVM_Image_Processing.Views.CannyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MVVM_Image_Processing.Views"
+             xmlns:vm="clr-namespace:MVVM_Image_Processing.ViewModels"
+             mc:Ignorable="d" 
+             MinHeight="530" MinWidth="900" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" >
+    <UserControl.Resources>
+        <vm:MainWindowViewModel x:Key="MainWindowViewModel"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="400"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="450"/>
+            <ColumnDefinition Width="450"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <Image 
+            Grid.Column="0" 
+            Grid.Row="0"
+            Height="400"
+            Width="450" 
+            Source="{Binding Image}">
+            </Image>
+        </StackPanel>
+        <GroupBox 
+            Grid.Column="0" 
+            Grid.Row="1" 
+            Margin="10,5,158,0" 
+            VerticalAlignment="Top"
+            Height="80" Header="Preferences" BorderThickness="1" SnapsToDevicePixels="True"
+            />
+        <ToggleButton 
+            Grid.Column="0"
+            Grid.Row="1"
+            Margin="0,0,110,65" 
+            VerticalAlignment="Bottom" 
+            HorizontalAlignment="Right"  >
+        </ToggleButton>
+        <Label
+            Grid.Column="0"
+            Grid.Row="1"
+            Margin="0,0,8,59" 
+            VerticalAlignment="Bottom" 
+            HorizontalAlignment="Right" FontFamily="Adobe Arabic" Background="#FFD7E4F2" Foreground="#FF2196F3" FontSize="14"  >
+            自行设置参数
+        </Label>
+        <Button 
+            Grid.Row="1"
+            Grid.Column="0"
+            Width="100"
+            Height="30" Margin="0,0,27,20" 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Bottom">
+            边缘检测   
+        </Button>
+    </Grid>
+</UserControl>

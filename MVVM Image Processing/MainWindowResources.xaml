@@ -1,0 +1,11 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:MVVM_Image_Processing"
+    xmlns:vm="clr-namespace:MVVM_Image_Processing.ViewModels"
+    xmlns:vw="clr-namespace:MVVM_Image_Processing.Views"
+    >
+
+
+
+</ResourceDictionary>

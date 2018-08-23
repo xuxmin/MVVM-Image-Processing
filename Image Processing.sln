@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Image Processing", "Image Processing\Image Processing.csproj", "{592BB8F4-452E-4ABF-8242-66177C26A1A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVM Image Processing", "MVVM Image Processing\MVVM Image Processing.csproj", "{88A74BEC-495E-4494-93E8-D65145664B34}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{592BB8F4-452E-4ABF-8242-66177C26A1A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{592BB8F4-452E-4ABF-8242-66177C26A1A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{592BB8F4-452E-4ABF-8242-66177C26A1A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{592BB8F4-452E-4ABF-8242-66177C26A1A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88A74BEC-495E-4494-93E8-D65145664B34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88A74BEC-495E-4494-93E8-D65145664B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88A74BEC-495E-4494-93E8-D65145664B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88A74BEC-495E-4494-93E8-D65145664B34}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4DF4109E-B31D-45F7-9756-1DC7D9118008}
+	EndGlobalSection
+EndGlobal

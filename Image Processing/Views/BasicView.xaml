@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="Image_Processing.Views.Basic"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Image_Processing.Views"
+             xmlns:local1="clr-namespace:Image_Processing"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <ScrollViewer Height="100" Width="10">
+            <local1:ZoomBorder x:Name="border" ClipToBounds="True" Background="Gray">
+                <Image x:Name="MainImage"/>
+            </local1:ZoomBorder>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
