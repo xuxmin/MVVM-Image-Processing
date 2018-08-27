@@ -4,21 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MVVM_Image_Processing"
+        xmlns:vm="clr-namespace:MVVM_Image_Processing.ViewModels"
+        xmlns:vw="clr-namespace:MVVM_Image_Processing.Views"
 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground ="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{StaticResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Image Process" MinHeight="600" MinWidth="1080" WindowStartupLocation="CenterScreen">
-    <Window.Resources>
-        <ResourceDictionary Source="MainWindowResources.xaml"/>
+        Background="#FFE9DEFF"
         
+        Title="Image Process" MinHeight="600" MinWidth="1080" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:CannyViewModel}">
+            <vw:CannyView/>
+        </DataTemplate>
     </Window.Resources>
-    
+
+
     <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
         <materialDesign:DrawerHost.LeftDrawerContent>
             <DockPanel MinWidth="212">
@@ -36,7 +44,7 @@
                                 <TextBlock Text="Home" Margin="10"/>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem x:Name="Canny" Height="45" Padding="0" Selected="Canny_Selected">
+                        <ListViewItem x:Name="lviCanny" Height="45" Padding="0" Selected="Canny_Selected" >
                             <StackPanel Orientation="Horizontal" Margin="10 0">
                                 <materialDesign:PackIcon Kind="HelpCircleOutline" 
                                                          Width="20" Height="20" Margin="5"
@@ -45,10 +53,10 @@
                                 <TextBlock Text="Canny edge detection" Margin="10"/>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem Height="45" Padding="0">
+                        <ListViewItem x:Name="lviContourAnalysis" Height="45" Padding="0" Selected="ContourAnalysis_Selected">
                             <StackPanel Orientation="Horizontal" Margin="10 0">
                                 <materialDesign:PackIcon Kind="Lightbulb" Width="20" Height="20" Foreground="Green" Margin="5" VerticalAlignment="Center"/>
-                                <TextBlock Text="Send Feedback" Margin="10"/>
+                                <TextBlock Text="Contour Analysis" Margin="10"/>
                             </StackPanel>
                         </ListViewItem>
                         <ListViewItem Height="45" Padding="0">
@@ -76,7 +84,7 @@
 
         <Grid >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
+                <ColumnDefinition MinWidth="50" Width="125"/>
                 <ColumnDefinition MinWidth="750"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -84,14 +92,14 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
-            <materialDesign:ColorZone Mode="PrimaryMid" Margin="0,0,0.333,0" Grid.Row="0" Grid.ColumnSpan="2" Height="32">
-                <ToolBarTray Orientation="Horizontal" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}">
+            <materialDesign:ColorZone  Margin="0,0,0.333,0" Grid.Row="0" Grid.ColumnSpan="2" Height="32">
+                <ToolBarTray Orientation="Horizontal" Background="#FF673AB7">
                     <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" 
-                             Background ="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+                             Background="#FF673AB7">
                         <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
                                 Width="20" Height="20" Margin="5"  
                                 HorizontalAlignment="Left" VerticalAlignment="Top"   
-                                x:Name="MenuToggleButton"/>
+                                x:Name="MenuToggleButton" Foreground="White"/>
                         <Separator />
                         <Separator />
                         <Button x:Name="btOpenFile"  ToolTip="Open file" 
@@ -100,14 +108,14 @@
                                 Background="{x:Null}" Padding="0"                             
                                 Command="{Binding OpenCommand}">
                             <materialDesign:PackIcon Kind="FolderOpen"   
-                                                     HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                     HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"/>
                         </Button>
                         <Button  x:Name="btSave" ToolTip="Save"
                                  Width="20" Height="20" Margin="5"  
                                  HorizontalAlignment="Left" VerticalAlignment="Top" 
                                  Background="{x:Null}" Padding="0">
                             <materialDesign:PackIcon Kind="ContentSave"  
-                                                     HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                     HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"/>
                         </Button>
                         <Separator />
                         <Button x:Name="btCut" ToolTip="Cut" 
@@ -115,51 +123,55 @@
                                 Width="20" Height="20" Margin="5"  
                                 HorizontalAlignment="Left" VerticalAlignment="Top" 
                                 Background="{x:Null}" Padding="0">
-                            <materialDesign:PackIcon Kind="ContentCut" />
+                            <materialDesign:PackIcon Kind="ContentCut" Foreground="White" />
                         </Button>
                         <Button x:Name="btCopy" 
                                 ToolTip="Copy that stuff" ToolBar.OverflowMode="AsNeeded"
                                 Width="20" Height="20" Margin="5"  
                                 HorizontalAlignment="Left" VerticalAlignment="Top" 
                                 Background="{x:Null}" Padding="0">
-                            <materialDesign:PackIcon Kind="ContentCopy" />
+                            <materialDesign:PackIcon Kind="ContentCopy" Background="White" Foreground="Black" />
                         </Button>
                         <Button x:Name="Paste" 
                                 ToolTip=" Paste some stuff" ToolBar.OverflowMode="AsNeeded"
                                 Width="20" Height="20" Margin="5"  
                                 HorizontalAlignment="Left" VerticalAlignment="Top" 
                                 Background="{x:Null}" Padding="0">
-                            <materialDesign:PackIcon Kind="ContentPaste" />
+                            <materialDesign:PackIcon Kind="ContentPaste" Foreground="Black" />
                         </Button>
                     </ToolBar>
                 </ToolBarTray>
             </materialDesign:ColorZone>
 
-
+            <TextBlock x:Name="textBlock"  Grid.Column="0" Height="20" Grid.Row="1" Margin="10,0" Padding="5" TextAlignment="Center" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Foreground="#FF2692E8" FontWeight="Bold">图像列表</TextBlock>
             <ListView x:Name="ImageList" 
-                      Grid.Column="0" Grid.Row="1"                     
-                      ItemsSource="{Binding Images}" SelectionChanged="ImageList_SelectionChanged"                
-                      
+
+                      Grid.Column="0" Grid.Row="1"     
+                      MinHeight="470"
+                      ItemsSource="{Binding Images}" 
+                      SelectionChanged="ImageList_SelectionChanged"     
+                      SelectedItem="{Binding SelectedImage, Mode=OneWayToSource}" Margin="0,27,0,-16.667" Height="470" Grid.RowSpan="2" VerticalAlignment="Top" Background="#FFF0F0F0" 
                       >
-                <ListView.ItemTemplate>
+                <ListView.ItemTemplate >
                     <DataTemplate>
                         <StackPanel>
-                            <Border  
-                                BorderThickness="1"
-                                BorderBrush="AliceBlue">
-                                <Image Width="125" Height="70"  Source="{Binding}" Stretch="Uniform"/>
+                            <Border BorderThickness="1" BorderBrush="AliceBlue">
+                                <Image  Width="{Binding ActualWidth, ElementName=textBlock, Mode=OneWay}" Source="{Binding}" Stretch="UniformToFill"/>
                             </Border>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            
+
+
+            <GridSplitter x:Name="gridSplitter" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Width="5" Margin="0"/>
+
             <ContentControl  x:Name="contentControl" 
                              Grid.Row="1" 
                              Grid.Column="1" 
                              Grid.RowSpan="2"
-                             Height="500"
-                             Width="900"
+                             MinHeight="500"
+                             MinWidth="900"
                              Margin="0,0,0,0" 
                              Content="{Binding}"/>
 

@@ -1,0 +1,70 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MVVM_Image_Processing.Views"
+             xmlns:vm="clr-namespace:MVVM_Image_Processing.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:MVVM_Image_Processing="clr-namespace:MVVM_Image_Processing" x:Class="MVVM_Image_Processing.Views.ContourAnalysisView"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.DataContext>
+        <vm:ContourAnalysisViewModel/>
+    </UserControl.DataContext>
+    <Grid Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MinWidth="500"/>
+            <ColumnDefinition Width="250" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Button Grid.Column="0" Grid.Row="0" Width="100" Margin="20" Command="{Binding OpenTemplateCommand}">导入模板</Button>
+            <Button Grid.Column="0" Grid.Row="0" Width="100" Margin="20" Command="{Binding CreateTemplateCommand}">创建模板</Button>
+            <Button Grid.Column="0" Grid.Row="0" Width="100" Margin="20" Command="{Binding TemplateEditorCommand}">编辑模板</Button>
+
+        </StackPanel>
+
+        <materialDesign:Card Grid.Row="1" Grid.Column="0" Margin="30" MinHeight="340" materialDesign:ShadowAssist.ShadowDepth="Depth1" Background="#FFDDCFF6">
+            <Image   Source="{Binding Frame}" />
+        </materialDesign:Card>
+
+        <GridSplitter Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right"  Margin="0"  VerticalAlignment="Stretch" Width="5"/>
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <Button x:Name="btProcessImage" Content="开始识别" Grid.Column="1" Grid.Row="1" Width="100" VerticalAlignment="Top" Margin="30" Command="{Binding RecognizeCommand, Mode=OneWay}"/>
+            <TextBox Grid.Column="1" Grid.Row="1" Height="100" Margin="20,0" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" ></TextBox>
+
+            <StackPanel Orientation="Horizontal" Margin="25,10,25,0" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" >
+                <materialDesign:PackIcon Kind="Settings" Width="20" Height="20" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Margin="5" VerticalAlignment="Center"/>
+                <TextBlock Text="识别参数设置" Margin="10" FontSize="14" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="25 0" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" >
+                <TextBlock Text="轮廓最小长度" ToolTip="过滤掉长度小与该值的轮廓" Margin="5" FontSize="12" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
+                <TextBox Width="60" VerticalContentAlignment="Center" Height="21" VerticalAlignment="Top" Text="{Binding ContourLength, Mode=TwoWay}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="25 0" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" >
+                <TextBlock Text="轮廓最小面积" ToolTip="过滤掉面积小与该值的轮廓" Margin="5" FontSize="12" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
+                <TextBox Width="60" VerticalContentAlignment="Center" Height="21" VerticalAlignment="Top" Text="{Binding ContourArea, Mode=TwoWay}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="25 0" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" >
+                <TextBlock Text="Max. ACF descriptor deviation" Margin="5" FontSize="12" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
+                <TextBox Width="60" VerticalContentAlignment="Center" Height="21" VerticalAlignment="Top" Text="{Binding MaxACFDesc, Mode=TwoWay}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="25 0" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" >
+                <TextBlock Text="Min.ACF" Margin="5" FontSize="12" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
+                <TextBox Width="60" VerticalContentAlignment="Center" Height="21" VerticalAlignment="Top" Text="{Binding MinACF, Mode=TwoWay}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="25 0" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}" >
+                <TextBlock Text="Min.ICF" Margin="5" FontSize="12" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
+                <TextBox Width="60" VerticalContentAlignment="Center" Height="21" VerticalAlignment="Top" Text ="{Binding MinICF, Mode=TwoWay}"></TextBox>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

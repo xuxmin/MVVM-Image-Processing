@@ -1,6 +1,8 @@
-﻿using MVVM_Image_Processing.ViewModels;
+﻿
+using System.Drawing;
+using System.Text.RegularExpressions;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
+
 
 namespace MVVM_Image_Processing.Views
 {
@@ -12,11 +14,20 @@ namespace MVVM_Image_Processing.Views
         public CannyView()
         {
             InitializeComponent();
+            
         }
-        public CannyView(BitmapImage image)
+
+        private void tb_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            InitializeComponent();
-            DataContext = new CannyViewModel(image);
+            Regex re = new Regex("[^0-9-]+");
+
+            e.Handled = re.IsMatch(e.Text);
+        }
+        private void tb_PreviewTextFloatInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            Regex re = new Regex("[^0-9.-]+");
+
+            e.Handled = re.IsMatch(e.Text);
         }
     }
 }

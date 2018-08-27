@@ -1,0 +1,32 @@
+﻿<Window x:Class="MVVM_Image_Processing.ShowContoursForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVVM_Image_Processing"
+        mc:Ignorable="d"
+        Title="Create templates" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="dgvContours" Margin="0,0,0,40" ColumnWidth="*" AutoGenerateColumns="False" ItemsSource="{Binding MyDataObject}" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Number}" Width="40" ClipboardContentBinding="{x:Null}" Header="序号"/>
+                <DataGridTemplateColumn Width="600" Header="Contour">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding image}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <Button Content="Add selected contour as Template:" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="231" Height="22" Click="Button_Click"/>
+        <TextBox x:Name="tbTemplateName" HorizontalAlignment="Left" Height="21" Margin="260,0,0,10" TextWrapping="Wrap" Text="&lt;template name&gt;" VerticalAlignment="Bottom" Width="144" Foreground="Gray" MouseEnter="tbTemplateName_MouseEnter"/>
+        <Label Content="enter template name or image file name (*.png, *.jpg)" HorizontalAlignment="Left" Margin="428,2,0,0" VerticalAlignment="Bottom" Width="326" Height="32" Foreground="Gray"/>
+
+    </Grid>
+</Window>
