@@ -18,7 +18,7 @@ namespace MVVM_Image_Processing
         public MainWindow()
         {
             InitializeComponent();
-            
+
         }
         private BitmapImage _selectedImage;
         private void Canny_Selected(object sender, RoutedEventArgs e)
@@ -66,20 +66,25 @@ namespace MVVM_Image_Processing
 
         private void ImageList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            _selectedImage = (BitmapImage)ImageList.SelectedItem;
+            if(ImageList.SelectedItem != null)
+            {
+                _selectedImage = (BitmapImage)ImageList.SelectedItem;
 
-            try
-            {
-                FileStream myStream = new FileStream("SelectedImage.txt", FileMode.Create, FileAccess.ReadWrite);
-                StreamWriter sw = new StreamWriter(myStream, Encoding.GetEncoding("gb2312"));
-                sw.Write(_selectedImage.ToString());
-                sw.Close();
-                myStream.Close();
+                try
+                {
+                    FileStream myStream = new FileStream("SelectedImage.txt", FileMode.Create, FileAccess.ReadWrite);
+                    StreamWriter sw = new StreamWriter(myStream, Encoding.GetEncoding("gb2312"));
+                    sw.Write(_selectedImage.ToString());
+                    sw.Close();
+                    myStream.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+
+
 
             if (lviCanny.IsSelected)
             {
@@ -89,10 +94,35 @@ namespace MVVM_Image_Processing
             {
                 contentControl.Content = new ContourAnalysisView();
             }
+            else if(lviImageView.IsSelected)
+            {
+                contentControl.Content = new ImageView();
+            }
 
 
         }
 
+        private void lviImageView_Selected(object sender, RoutedEventArgs e)
+        {
+            if (ImageList.SelectedIndex >= 0)
+            {
+                _selectedImage = (BitmapImage)ImageList.SelectedItem;
+
+                try
+                {
+                    FileStream myStream = new FileStream("SelectedImage.txt", FileMode.Create, FileAccess.ReadWrite);
+                    StreamWriter sw = new StreamWriter(myStream, Encoding.GetEncoding("gb2312"));
+                    sw.Write(_selectedImage.ToString());
+                    sw.Close();
+                    myStream.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+            contentControl.Content = new ImageView();
+        }
 
     }
 }

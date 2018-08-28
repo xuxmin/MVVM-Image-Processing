@@ -8,13 +8,13 @@
         Title="TemplateEditor" Height="394" Width="704">
     <Grid Margin="0,0,-6.667,-1.333">
         <Label Content="Templates" HorizontalAlignment="Left" Margin="29,24,0,0" VerticalAlignment="Top" Height="31" Width="101"/>
-        <DataGrid x:Name="dgvTemplates" ItemsSource="{Binding Temp}" LoadingRow="dgvTemplates_LoadingRow" SelectionChanged="dgvTemplates_SelectionChanged" AutoGenerateColumns ="False" HorizontalAlignment="Left" Height="276" Margin="41,60,0,0" VerticalAlignment="Top" Width="339">
+        <DataGrid  x:Name="dgvTemplates" ItemsSource="{Binding Temp}" LoadingRow="dgvTemplates_LoadingRow" SelectionChanged="dgvTemplates_SelectionChanged" AutoGenerateColumns ="False" HorizontalAlignment="Left" Height="276" Margin="41,60,0,0" VerticalAlignment="Top" Width="339">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Name}" ClipboardContentBinding="{x:Null}" Header="Name"/>
+                <DataGridTextColumn Width="300" Binding="{Binding Path=Name}" ClipboardContentBinding="{x:Null}" Header="Name"/>
             </DataGrid.Columns>
         </DataGrid>
         <CheckBox x:Name="cbPreferredAngle" Content="Preferred angle no more 90" Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" HorizontalAlignment="Left" Margin="447,291,0,0" VerticalAlignment="Top" Height="19" Width="192"/>
-        <Button x:Name="btDelete" Content="Delete template" HorizontalAlignment="Left" Margin="447,315,0,0" VerticalAlignment="Top" Width="128" Height="32" Click="btDelete_Click"/>
+        <Button x:Name="btDelete" Content="Delete template" HorizontalAlignment="Left" Margin="447,315,0,0" VerticalAlignment="Top" Width="145" Height="32" Click="btDelete_Click"/>
         <Image x:Name="image1" HorizontalAlignment="Left" Height="230" Margin="403,60,0,0" VerticalAlignment="Top" Width="280"/>
 
     </Grid>

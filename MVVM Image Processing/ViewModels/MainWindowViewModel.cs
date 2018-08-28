@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -9,9 +12,15 @@ namespace MVVM_Image_Processing.ViewModels
     {
         #region Fields
 
+        private BitmapImage _selectedImage;
         private BitmapImage _image;
         private ObservableCollection<BitmapImage> _images;
         RelayCommand _openCommand;
+        RelayCommand _deleteCommand;
+
+        string directoryPath;
+        private FileInfo[] Files;
+
         #endregion
 
         #region Constructor
@@ -50,6 +59,19 @@ namespace MVVM_Image_Processing.ViewModels
                 base.OnPropertyChanged("Images");
             }
         }
+        public BitmapImage SelectedImage
+        {
+            get
+            {
+                return _selectedImage;
+            }
+            set
+            {
+                _selectedImage = value;
+                base.OnPropertyChanged("SelectedImage");
+            }
+        }
+
 
         #endregion
 
@@ -66,7 +88,25 @@ namespace MVVM_Image_Processing.ViewModels
                 return _openCommand;
             }
         }
+        public ICommand DeleteCommand
+        {
+            get
+            {
+                if (_deleteCommand == null)
+                {
+                    _deleteCommand = new RelayCommand(param => this.DeleteFile());
+                }
+                return _deleteCommand;
+            }
+        }
 
+        public ICommand DirectoryBrowse
+        {
+            get
+            {
+                return new RelayCommand(param => DirectoryBrowseExecute());
+            }
+        }
         #endregion
 
         #region  Methods
@@ -84,11 +124,78 @@ namespace MVVM_Image_Processing.ViewModels
             {
                 string path = openFileDialog.FileName;
                 _image = new BitmapImage(new Uri(path, UriKind.Absolute));               
-                _images.Add(_image);                
+                _images.Add(_image);   
+                
             }            
             // base.OnPropertyChanged("SelectedImage");
         }
 
+        private void DirectoryBrowseExecute()
+        {
+            try
+            {
+                System.Windows.Forms.FolderBrowserDialog myFolders = new System.Windows.Forms.FolderBrowserDialog();
+                myFolders.ShowNewFolderButton = false;
+
+                if (myFolders.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                     directoryPath = myFolders.SelectedPath;
+                    _images.Clear();
+                    AddItemsToListBox();
+                    if (_images.Count == 0)
+                    {
+                        MessageBox.Show("Selected directory doesn't contains images");
+                    }
+                    base.OnPropertyChanged("Images");
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void AddItemsToListBox()
+        {
+            string[] extensions = new[] { ".jpg", ".jpeg", ".bmp", ".tiff", ".png" };
+            DirectoryInfo dinfo = new DirectoryInfo(directoryPath);
+            Files = dinfo.EnumerateFiles().Where(f => extensions.Contains(f.Extension.ToLower())).ToArray();
+
+            foreach (FileInfo file in Files)
+            {
+                _image = new BitmapImage(new Uri(directoryPath + "\\"+ file.Name, UriKind.Absolute));
+                _images.Add(_image);
+            }
+        }
+
+        private void DeleteFile()
+        {
+            int index = _images.IndexOf(_selectedImage);
+            _images.Remove(_selectedImage);
+
+            if(Images.Count == 0)
+            {
+                _selectedImage = null;
+            }
+            else if(_images.Count == 1)
+            {
+                _selectedImage = _images[0];
+            }
+            else
+            {
+                if(index == _images.Count)
+                {
+                    _selectedImage = _images[index - 1];
+                }
+                else
+                {
+                    _selectedImage = _images[index];
+                }
+            }
+            base.OnPropertyChanged("Images");
+            base.OnPropertyChanged("SelectedImage");
+        }
         #endregion
     }
 }

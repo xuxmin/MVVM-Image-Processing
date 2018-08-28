@@ -296,6 +296,15 @@ namespace MVVM_Image_Processing.ViewModels
 
         private void Recognize()
         {
+            //settings
+            processor.minContourLength = _contourLength;
+            processor.minContourArea = _contourArea;
+            processor.finder.maxACFDescriptorDeviation = _maxACFDesc;
+            processor.finder.minACF = _minACF;
+            processor.finder.minICF = _minICF;
+
+
+            if (_originFrame == null) return;
             Image<Bgr, byte> frame = new Image<Bgr, byte>(BitmapConvert.BitmapImageToBitmap( _originFrame));
 
             //process image
@@ -310,8 +319,8 @@ namespace MVVM_Image_Processing.ViewModels
 
             //e.DrawString(lbFPS.Content.ToString(), new Font("Times New Roman", 16), Brushes.Yellow, new PointF(1, 1));
 
-            Brush bgBrush = new SolidBrush(Color.FromArgb(255, 0, 0, 0));
-            Brush foreBrush = new SolidBrush(Color.FromArgb(255, 255, 255, 255));
+            Brush bgBrush = new SolidBrush(Color.Blue);
+            Brush foreBrush = new SolidBrush(Color.Red);
             Pen borderPen = new Pen(Color.FromArgb(150, 0, 255, 0));
             //
             if (_showContours)

@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:MVVM_Image_Processing.Views"
              xmlns:vm="clr-namespace:MVVM_Image_Processing.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:MVVM_Image_Processing="clr-namespace:MVVM_Image_Processing" x:Class="MVVM_Image_Processing.Views.ContourAnalysisView"
+             xmlns:MVVM_Image_Processing="clr-namespace:MVVM_Image_Processing" 
+             x:Class="MVVM_Image_Processing.Views.ContourAnalysisView"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 

@@ -55,6 +55,7 @@ namespace MVVM_Image_Processing
                 return new Bitmap(bitmap);
             }
 
+
         }
     }
 }
