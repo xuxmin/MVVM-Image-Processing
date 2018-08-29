@@ -185,6 +185,15 @@ namespace CannyEdgeDetection
 
         #region Public Methods
 
+        /// <summary>
+        /// Canny检测
+        /// </summary>
+        /// <param name="Input"></param>
+        /// <param name="Edges"></param>
+        /// <param name="KernelSize"></param>
+        /// <param name="Sigma"></param>
+        /// <param name="ThrHigh"></param>
+        /// <param name="ThrLow"></param>
         public static void DetectCannyEdges(Bitmap Input,out Bitmap Edges,
                                         int KernelSize, float Sigma,
                                         int ThrHigh, int ThrLow)
@@ -228,6 +237,13 @@ namespace CannyEdgeDetection
             lockBitmap.UnlockBits();
         }
 
+        /// <summary>
+        /// 获得高斯过滤后的图像
+        /// </summary>
+        /// <param name="Input"></param>
+        /// <param name="Edges"></param>
+        /// <param name="KernelSize"></param>
+        /// <param name="Sigma"></param>
         public static void GaussianFilter(Bitmap Input, out Bitmap Edges, int KernelSize, float Sigma)
         {
             ReadImage(Input);
@@ -249,6 +265,13 @@ namespace CannyEdgeDetection
             lockBitmap.UnlockBits();
         }
 
+        /// <summary>
+        /// 获得非极大值抑制后的图像
+        /// </summary>
+        /// <param name="Input"></param>
+        /// <param name="Edges"></param>
+        /// <param name="KernelSize"></param>
+        /// <param name="Sigma"></param>
         public static void Suppression(Bitmap Input, out Bitmap Edges,int KernelSize, float Sigma)
         {
             ReadImage(Input);
@@ -278,6 +301,16 @@ namespace CannyEdgeDetection
             lockBitmap.UnlockBits();
         }
 
+        /// <summary>
+        /// 获得强弱边缘图像
+        /// </summary>
+        /// <param name="Input"></param>
+        /// <param name="SEIamge"></param>
+        /// <param name="WEImage"></param>
+        /// <param name="KernelSize"></param>
+        /// <param name="Sigma"></param>
+        /// <param name="ThrHigh"></param>
+        /// <param name="ThrLow"></param>
         public static void Threshold(Bitmap Input, 
                                         out Bitmap SEIamge, out Bitmap WEImage,
                                         int KernelSize, float Sigma,

@@ -18,6 +18,7 @@ namespace MVVM_Image_Processing
         public MainWindow()
         {
             InitializeComponent();
+            contentControl.Content = null;
 
         }
         private BitmapImage _selectedImage;
@@ -40,6 +41,7 @@ namespace MVVM_Image_Processing
                     MessageBox.Show(ex.ToString());
                 }
             }
+            tbHeader.Text = "Canny Edge Detection";
             contentControl.Content = new CannyView();
         }
         private void ContourAnalysis_Selected(object sender, RoutedEventArgs e)
@@ -61,6 +63,7 @@ namespace MVVM_Image_Processing
                     MessageBox.Show(ex.ToString());
                 }
             }
+            tbHeader.Text = "Contour Analysis";
             contentControl.Content = new ContourAnalysisView();
         }
 
@@ -88,14 +91,17 @@ namespace MVVM_Image_Processing
 
             if (lviCanny.IsSelected)
             {
+                tbHeader.Text = "Canny Edge Detection";
                 contentControl.Content = new CannyView();
             }
             else if(lviContourAnalysis.IsSelected)
             {
+                tbHeader.Text = "Contour Analysis";
                 contentControl.Content = new ContourAnalysisView();
             }
             else if(lviImageView.IsSelected)
             {
+                tbHeader.Text = "Image View";
                 contentControl.Content = new ImageView();
             }
 
@@ -121,8 +127,25 @@ namespace MVVM_Image_Processing
                     MessageBox.Show(ex.ToString());
                 }
             }
+            tbHeader.Text = "Image View";
             contentControl.Content = new ImageView();
         }
 
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.Close();
+            
+        }
+
+        private void btMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            window.WindowState = WindowState.Minimized;
+
+        }
+
+        private void ColorZone_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }

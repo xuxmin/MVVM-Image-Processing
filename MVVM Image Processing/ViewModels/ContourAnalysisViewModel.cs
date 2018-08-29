@@ -414,7 +414,7 @@ namespace MVVM_Image_Processing.ViewModels
         }
         private void TemplateEditor()
         {
-            new TemplateEditor(processor.templates).Show();
+            new TemplateEditor(processor.templates).ShowDialog();
         }
 
         #endregion

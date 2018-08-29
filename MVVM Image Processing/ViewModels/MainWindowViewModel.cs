@@ -197,5 +197,6 @@ namespace MVVM_Image_Processing.ViewModels
             base.OnPropertyChanged("SelectedImage");
         }
         #endregion
+
     }
 }
